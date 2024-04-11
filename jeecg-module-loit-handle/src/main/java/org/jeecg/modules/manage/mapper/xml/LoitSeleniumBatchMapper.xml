@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jeecg.modules.manage.mapper.LoitSeleniumBatchMapper">
+    <select id="getBatchList" resultType="org.jeecg.modules.manage.entity.LoitSeleniumBatch">
+        SELECT a.*,b.project_name FROM selenium_batch a
+        LEFT JOIN selenium_project b ON a.project_id = b.id
+        <where>
+            <if test="batchName !=null ">
+                a.batch_name = #{batchName}
+            </if>
+            <if test="projectName !=null ">
+                and b.project_name = #{projectName}
+            </if>
+            <if test="batchProcessState !=null ">
+                and a.batch_process_state = #{batchProcessState}
+            </if>
+            <if test="batchTreatmentState !=null ">
+                and a.batch_treatment_state = #{batchTreatmentState}
+            </if>
+        </where>
+        LIMIT #{startNum},#{pageSize}
+    </select>
+</mapper>
